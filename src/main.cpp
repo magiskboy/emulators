@@ -1,24 +1,23 @@
+#include "Config.hpp"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_stdinc.h>
 #include <SDL2/SDL_timer.h>
 #include <SDL2/SDL_video.h>
 
-const Uint32 FPS = 60;
-const Uint32 TIME_FOR_FRAME = 1000 / FPS;
+const Uint32 TIME_FOR_FRAME = 1000 / Config::FPS;
 
 int main(int argc, char **argv) {
   SDL_Init(SDL_INIT_EVERYTHING);
-  SDL_Window *wind =
-      SDL_CreateWindow("The game", SDL_WINDOWPOS_CENTERED,
-                       SDL_WINDOWPOS_CENTERED, 640, 480, SDL_WINDOW_SHOWN);
+  SDL_Window *wind = SDL_CreateWindow(
+      Config::WINDOW_TITLE.c_str(), Config::WINDOWPOS_X, Config::WINDOWPOS_Y,
+      Config::WINDOW_WIDTH, Config::WINDOW_HEIGHT, Config::WINDOW_FLAGS);
   if (wind == NULL) {
     perror(SDL_GetError());
     return 1;
   }
 
-  SDL_Renderer *rR = SDL_CreateRenderer(
-      wind, 0, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+  SDL_Renderer *rR = SDL_CreateRenderer(wind, 0, Config::RENDERER_FLAGS);
   if (rR == NULL) {
     perror(SDL_GetError());
     return 1;
@@ -37,7 +36,7 @@ int main(int argc, char **argv) {
 
     // Handle input
     SDL_PollEvent(&event);
-    if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE) {
+    if (event.type == SDL_KEYDOWN && event.key.keysym.sym == Config::KEY_BACK) {
       is_running = 0;
     }
 

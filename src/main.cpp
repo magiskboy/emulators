@@ -3,7 +3,6 @@
 #include <SDL2/SDL_stdinc.h>
 #include <SDL2/SDL_timer.h>
 #include <SDL2/SDL_video.h>
-#include <stdio.h>
 
 const Uint32 FPS = 60;
 const Uint32 TIME_FOR_FRAME = 1000 / FPS;
